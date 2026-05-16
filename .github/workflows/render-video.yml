@@ -37,14 +37,14 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
       - name: Cache npm dependencies
         uses: actions/cache@v4
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-node-22-${{ hashFiles('package-lock.json') }}
+          key: ${{ runner.os }}-node-24-${{ hashFiles('package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-22-
+            ${{ runner.os }}-node-24-
       - name: Install dependencies
         run: npm ci
       - name: Calculate frame ranges
@@ -90,14 +90,14 @@ jobs:
           fi
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
       - name: Cache npm dependencies
         uses: actions/cache@v4
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-node-22-${{ hashFiles('package-lock.json') }}
+          key: ${{ runner.os }}-node-24-${{ hashFiles('package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-22-
+            ${{ runner.os }}-node-24-
       - run: npm ci
       - name: Ensure Chrome
         run: npx remotion browser ensure
