@@ -25,10 +25,12 @@ jobs:
       - name: Download public assets
         run: |
           RELEASE_URL=$(curl -s https://api.github.com/repos/${{ github.repository }}/releases/latest \
-            | grep "browser_download_url.*public.zip" \
+            | grep "browser_download_url.*\.zip" \
+            | head -n 1 \
             | cut -d '"' -f 4)
-          curl -L -o public.zip "$RELEASE_URL"
-          unzip -o public.zip -d public/
+          echo "Using release asset: $RELEASE_URL"
+          curl -L -o assets.zip "$RELEASE_URL"
+          unzip -o assets.zip -d public/
       - name: Cache public assets
         uses: actions/cache@v4
         with:
@@ -83,10 +85,12 @@ jobs:
         run: |
           if [ ! -f public/scenes.json ]; then
             RELEASE_URL=$(curl -s https://api.github.com/repos/${{ github.repository }}/releases/latest \
-              | grep "browser_download_url.*public.zip" \
+              | grep "browser_download_url.*\.zip" \
+              | head -n 1 \
               | cut -d '"' -f 4)
-            curl -L -o public.zip "$RELEASE_URL"
-            unzip -o public.zip -d public/
+            echo "Using release asset: $RELEASE_URL"
+            curl -L -o assets.zip "$RELEASE_URL"
+            unzip -o assets.zip -d public/
           fi
       - uses: actions/setup-node@v4
         with:
